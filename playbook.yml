@@ -1,10 +1,8 @@
 - hosts: all
   become: true
     
-  vars:
-    pip_install_packages:
-      - name: docker
-      - name: awscli
-
   roles:
-    - geerlingguy.pip
+    - role: geerlingguy.pip
+      vars:
+        pip_install_packages:
+          - name: docker
