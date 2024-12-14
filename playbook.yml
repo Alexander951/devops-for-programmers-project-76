@@ -1,5 +1,4 @@
 - hosts: all
-  #become: true
   remote_user: '{{ansible_user}}'
 
   roles:
@@ -11,7 +10,7 @@
       #become: true
       #remote_user: alex999
       tags: install
-      
+
   tasks:
     - name: Install pip
       ansible.builtin.import_role:
@@ -51,8 +50,7 @@
       #become: true
       #remote_user: alex999
       tags: deploy
-      
-      
+
 - hosts: webservers
 
   tasks:
@@ -60,8 +58,8 @@
      import_role:
         name: datadog.datadog
      become: true
-     tags: install-datadog    
-        
+     tags: install-datadog
+
   vars:
     datadog_api_key: '{{ datadog_api_keys }}'
     datadog_site: datadoghq.eu
@@ -71,6 +69,4 @@
         instances:
           - name: Check application health
             url: 'https://hexlet.web-programmer.kz'
-     
 
-      
