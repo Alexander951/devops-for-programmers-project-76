@@ -12,5 +12,18 @@ demo url [hexlet.web-programmer.kz](https://hexlet.web-programmer.kz)
 
 ### Setup servers
 ```
-make prepare-servers
+$ make equirements - install role
 ```
+```
+$ make install - install pip and docker
+```
+```
+$ deploy - Start Redmine
+```
+```
+$ role-datadog - install role for Datadog
+```
+```
+$ install-datadog - install and setup Datadog
+```
+
