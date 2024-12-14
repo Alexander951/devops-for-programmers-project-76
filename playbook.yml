@@ -31,7 +31,7 @@
       #remote_user: alex999
       tags: deploy
 
-    - name: install Redmine
+    - name: Install Redmine
       community.docker.docker_container:
         name: redmine
         image: redmine:latest
@@ -40,13 +40,13 @@
         state: started
         ports:
           - "3000:3000"
-        #env_file: ~/.env
-        env:
-          REDMINE_DB_POSTGRES: "{{ db_host }}"
-          REDMINE_DB_PORT: "{{ db_port }}"
-          REDMINE_DB_DATABASE: "{{ db_name }}"
-          REDMINE_DB_USERNAME: "{{ db_user }}"
-          REDMINE_DB_PASSWORD: "{{ db_user_password }}"
+        env_file: ~/.env
+        #env:
+          #REDMINE_DB_POSTGRES: "{{ db_host }}"
+          #REDMINE_DB_PORT: "{{ db_port }}"
+          #REDMINE_DB_DATABASE: "{{ db_name }}"
+          #REDMINE_DB_USERNAME: "{{ db_user }}"
+          #REDMINE_DB_PASSWORD: "{{ db_user_password }}"
       #become: true
       #remote_user: alex999
       tags: deploy
@@ -67,6 +67,6 @@
       http_check:
         init_config:
         instances:
-          - name: Check application health
+          - name: Check website health
             url: 'https://hexlet.web-programmer.kz'
 
