@@ -58,7 +58,7 @@
   tasks:
    - name: Install datadog
      import_role:
-        name: datadog.dd.agent
+        name: datadog.datadog
      become: true
      tags: install-datadog    
         
