@@ -107,7 +107,7 @@
          regexp: "^{{ item.key }}:"
          line: "{{ item.key }}: {{ item.value }}"
        with_items:
-        - { key: "api_key", value: "{{ datadog_api_keys }}" }
+        - { key: "api_key", value: "{{ datadog_api_key }}" }
         - { key: "site", value: "datadoghq.eu" }
         - { key: "logs_enabled", value: "true" }
         - { key: "apm_enabled", value: "true" }
