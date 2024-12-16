@@ -56,8 +56,8 @@
           #REDMINE_DB_DATABASE: "{{ db_name }}"
           #REDMINE_DB_USERNAME: "{{ db_user }}"
           #REDMINE_DB_PASSWORD: "{{ db_user_password }}"
-      become: true
-      remote_user: alex999
+      #become: true
+      #remote_user: alex999
       tags: deploy
       
     - name: Setup config for DB
@@ -65,7 +65,7 @@
         src: templates/database.yml.j2
         dest: "~/redmine_config/database.yml"
       #become: true  
-      remote_user: alex999
+      #remote_user: alex999 
       tags: deploy
       
     - name: Restert container Redmine
