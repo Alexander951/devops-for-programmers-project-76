@@ -9,10 +9,10 @@ install:
 	ansible-playbook playbook.yml -i inventory.ini -t install --vault-password-file .password -vv
 
 deploy:
-	ansible-playbook playbook.yml -i inventory.ini -t deploy --vault-password-file .password -vv	
+	ansible-playbook playbook.yml -i inventory.ini -t deploy --vault-password-file .password	
 
 role-datadog:
-	ansible-galaxy collection install datadog.dd
+	ansible-galaxy role install datadog.datadog
 	
 install-datadog:
 	ansible-playbook playbook.yml -i inventory.ini -t install-datadog --vault-password-file .password	
