@@ -1,16 +1,9 @@
 - hosts: all
   
-  vars:
-    env_dir: ~/.env  # Path for .env in container
-    container_name: redmine
-    docker_image: redmine:latest
-    
   roles:
     - role: geerlingguy.pip
       vars:
-        pip_install_packages:
-          - name: docker
-            state: present
+        {{ pip_install_packages }}
       become: true      
       tags: install
 
@@ -27,14 +20,6 @@
       become: true  
       tags: install
 
-    - name: Create redmine-network for Redmine
-      command: docker network create redmine-network
-      args:
-        creates: /var/lib/docker/network/redmine-network
-      become: true 
-      ignore_errors: yes
-      tags: install
-      
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
@@ -47,26 +32,15 @@
         name: "{{ container_name }}"
         image: "{{ docker_image }}"
         restart_policy: always
-        networks: 
-          - name: redmine-network
         ports:
           - 80:3000
-        #volumes:
-          #- ~/redmine_config/database.yml:/usr/src/redmine/config/database.yml  
         env_file: "{{ env_dir }}"
-        #env:
-          #REDMINE_DB_POSTGRES: "{{ db_host }}"
-          #REDMINE_DB_PORT: "{{ db_port }}"
-          #REDMINE_DB_DATABASE: "{{ db_name }}"
-          #REDMINE_DB_USERNAME: "{{ db_user }}"
-          #REDMINE_DB_PASSWORD: "{{ db_user_password }}"
       tags: deploy
-      
-      
-      
+
+
 
 - name: Install Datadog Agent
-  hosts: all
+  hosts: webservers
   tags: install-datadog
   become: true
   
@@ -106,8 +80,8 @@
          path: /etc/datadog-agent/datadog.yaml
          regexp: "^{{ item.key }}:"
          line: "{{ item.key }}: {{ item.value }}"
-       with_items:
-        - { key: "api_key", value: "{{ datadog_api_key }}" }
+       with_items: 
+        - { key: "api_key", value: "{{ datadog_api_keys }}" }
         - { key: "site", value: "datadoghq.eu" }
         - { key: "logs_enabled", value: "true" }
         - { key: "apm_enabled", value: "true" }
