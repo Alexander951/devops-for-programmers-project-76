@@ -1,17 +1,14 @@
 - hosts: all
-  
-  roles:
 
   tasks:
   
-    - name: geerlingguy.pip 
-       include_role:
-         name: geerlingguy.pip
-       vars: 
+    - name: geerlingguy.pip
+      include_role:
+         name: geerlingguy.pip 
+      vars: 
          pip_install_packages:
           - name: "{{ pip_install_packages_name }}"
             state: present
-      become: true      
       tags: install
   
     - name: Add packeges
