@@ -2,9 +2,11 @@
   
   roles:
     - role: geerlingguy.pip
+      vars_files:
+        - group_vars/webservers/vars.yml
       vars: 
          pip_install_packages:
-          - name: {{ pip_install_packages_name }}
+          - name: "{{ pip_install_packages_name }}"
             state: present
       become: true      
       tags: install
