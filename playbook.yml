@@ -1,12 +1,17 @@
 - hosts: all
-  remote_user: alex999
   
+  vars:
+    env_dir: ~/.env  # Path for .env in container
+    container_name: redmine
+    docker_image: redmine:latest
+    
   roles:
     - role: geerlingguy.pip
       vars:
         pip_install_packages:
           - name: docker
             state: present
+      become: true      
       tags: install
 
   tasks:
@@ -33,63 +38,50 @@
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
-        dest: ~/.env
+        dest: "{{ env_dir }}"
         mode: '660'
-      #become: true
       tags: install
       
     - name: Start Redmine_
       community.docker.docker_container:
-        name: redmine
-        image: redmine:latest
+        name: "{{ container_name }}"
+        image: "{{ docker_image }}"
         restart_policy: always
         networks: 
           - name: redmine-network
         ports:
           - 80:3000
-        volumes:
-          - ~/redmine_config/database.yml:/usr/src/redmine/config/database.yml  
-        #env_file: ~/.env
+        #volumes:
+          #- ~/redmine_config/database.yml:/usr/src/redmine/config/database.yml  
+        env_file: "{{ env_dir }}"
         #env:
           #REDMINE_DB_POSTGRES: "{{ db_host }}"
           #REDMINE_DB_PORT: "{{ db_port }}"
           #REDMINE_DB_DATABASE: "{{ db_name }}"
           #REDMINE_DB_USERNAME: "{{ db_user }}"
           #REDMINE_DB_PASSWORD: "{{ db_user_password }}"
-      #become: true
-      #remote_user: alex999
       tags: deploy
       
-    - name: Setup config for DB
-      template:
-        src: templates/database.yml.j2
-        dest: "~/redmine_config/database.yml"
-      #become: true  
-      #remote_user: alex999 
-      tags: deploy
-      
-    - name: Restert container Redmine
-      docker_container:
-        name: redmine
-        state: restarted
-      become: true   
-      tags: deploy
       
       
 
 - name: Install Datadog Agent
-  hosts: webservers
-  remote_user: '{{ansible_user}}'
-  become: yes
+  hosts: all
   tags: install-datadog
+  become: true
   
   tasks:
-     - name: Install Datadog Agent
+     - name: Install Datadog 
        include_role:
          name: datadog.datadog
        vars:
          datadog_api_key: "{{ datadog_api_keys }}"
          datadog_site: datadoghq.eu
+         
+     - name: Install Datadog Agent
+       apt:
+        name: datadog-agent
+        state: present    
          
      - name: Verify that the Datadog Agent is running
        command: datadog-agent status
@@ -111,28 +103,32 @@
        
      - name: Configure Datadog Agent
        lineinfile:
-        path: /etc/datadog-agent/datadog.yaml
-        regexp: '^api_key:'
-        line: "api_key: {{ datadog_api_keys }}"
+         path: /etc/datadog-agent/datadog.yaml
+         regexp: "^{{ item.key }}:"
+         line: "{{ item.key }}: {{ item.value }}"
+       with_items:
+        - { key: "api_key", value: "{{ datadog_api_keys }}" }
+        - { key: "site", value: "datadoghq.eu" }
+        - { key: "logs_enabled", value: "true" }
+        - { key: "apm_enabled", value: "true" }
         
      - name: Create a health check for the web application
        copy:
          dest: /etc/datadog-agent/conf.d/http_check.d/conf.yaml
          content: |
           init_config:
-
-          instances:
+           instances:
             - name: Web App Redmine ({{ server_ip }}) 
               url: http://0.0.0.0:80
               timeout: 5
               check_interval: 60
               expected_codes: "200"
               tags:
-                - app:web_app
+                - service:redmine
 
      - name: Restart Datadog Agent
        service:
         name: datadog-agent
         state: restarted
-
+        enabled: yes
       
