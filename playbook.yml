@@ -64,7 +64,7 @@
       template:
         src: templates/database.yml.j2
         dest: "~/redmine_config/database.yml"
-      become: true  
+      #become: true  
       remote_user: alex999
       tags: deploy
       
