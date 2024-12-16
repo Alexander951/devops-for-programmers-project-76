@@ -6,22 +6,19 @@
 
 demo url [hexlet.web-programmer.kz](https://hexlet.web-programmer.kz)
 
+Скриншоты работы приложения [cloud.mail](https://cloud.mail.ru/public/zTLz/BB86H64G9)
+
 ### Requirements
 * Ansible
 * Make
 
 ### Setup servers
-```
-$ make equirements - install role
-```
+
 ```
 $ make install - install pip and docker
 ```
 ```
 $ deploy - Start Redmine
-```
-```
-$ role-datadog - install role for Datadog
 ```
 ```
 $ install-datadog - install and setup Datadog

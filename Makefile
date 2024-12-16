@@ -2,19 +2,15 @@
 ansible-ping:
 	ansible all -i inventory.ini -m ping
 	
-equirements:
-	ansible-galaxy install -r requirements.yml	
-	
 install:
+	ansible-galaxy install -r requirements.yml
 	ansible-playbook playbook.yml -i inventory.ini -t install --vault-password-file .password -vv
 
 deploy:
 	ansible-playbook playbook.yml -i inventory.ini -t deploy --vault-password-file .password	
 
-role-datadog:
-	ansible-galaxy role install datadog.datadog
-	
 install-datadog:
+	ansible-galaxy role install datadog.datadog
 	ansible-playbook playbook.yml -i inventory.ini -t install-datadog --vault-password-file .password	
 	
 create-vault:
