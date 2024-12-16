@@ -1,6 +1,6 @@
 - hosts: all
-  remote_user: '{{ansible_user}}'
-
+  remote_user: alex999
+  
   roles:
     - role: geerlingguy.pip
       vars:
@@ -36,7 +36,6 @@
         dest: ~/.env
         mode: '660'
       #become: true
-      remote_user: alex999
       tags: install
       
     - name: Start Redmine_
@@ -65,7 +64,6 @@
         src: templates/database.yml.j2
         dest: "~/redmine_config/database.yml"
       become: true  
-      remote_user: alex999
       tags: deploy
       
     - name: Restert container Redmine
