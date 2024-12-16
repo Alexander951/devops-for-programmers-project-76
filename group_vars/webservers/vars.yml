@@ -7,7 +7,5 @@ db_user: "user1"
 env_dir: ~/.env
 container_name: redmine
 docker_image: redmine:latest
-pip_install_packages:
-   pip_install_packages:
-     - name: docker
-       state: present
+pip_install_packages_name: docker
+

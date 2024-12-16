@@ -2,7 +2,10 @@
   
   roles:
     - role: geerlingguy.pip
-      vars: {{ pip_install_packages }}
+      vars: 
+         pip_install_packages:
+          - name: {{ pip_install_packages_name }}
+            state: present
       become: true      
       tags: install
 
