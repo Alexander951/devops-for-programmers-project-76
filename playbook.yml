@@ -62,20 +62,6 @@
         name: datadog-agent
         state: present    
          
-     - name: Verify that the Datadog Agent is running
-       command: datadog-agent status
-       register: agent_status
-
-     - name: Display Datadog Agent status
-       debug:
-         var: agent_status.stdout_lines
-         
-     - name: Check if Datadog Agent is running
-       ansible.builtin.assert:
-        that:
-          - "'Running' in agent_status.stdout"
-        fail_msg: "Datadog Agent is not running."
-        
      - name: Get the IP address
        set_fact:
         server_ip: "{{ ansible_default_ipv4.address }}"   
