@@ -1,6 +1,4 @@
 - hosts: all
-  vars_files:
-        - group_vars/webservers/vars.yml  
     
   roles:
     - role: geerlingguy.pip
@@ -8,6 +6,16 @@
       tags: install
       
   tasks:
+    - name: Add packeges
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+        state: present
+        update_cache: yes
+      become: true  
+      tags: install
+      
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
@@ -30,8 +38,6 @@
 - name: Install and setup Datadog Agent
   hosts: webservers
   tags: install-datadog
-  vars:
-    datadog_api_key: "{{ vault_datadog_api_keys }}"
          
   roles:
     - role: datadog.datadog
