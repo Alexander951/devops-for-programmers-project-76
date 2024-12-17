@@ -1,9 +1,10 @@
 - hosts: all
-  vars_files:
-         - group_vars/webservers/vars.yml  
+    
     
   roles:
     - role: geerlingguy.pip
+      vars_files:
+        - group_vars/webservers/vars.yml
       become: yes
       tags: install
       
@@ -34,7 +35,7 @@
   roles:
     - role: datadog.datadog
       vars_files:
-        - group_vars/webservers/vars.yml
+         - group_vars/webservers/vars.yml
       vars:
          datadog_api_key: "{{ vault_datadog_api_keys }}"
       become: yes
