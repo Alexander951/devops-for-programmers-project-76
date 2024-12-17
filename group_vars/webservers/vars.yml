@@ -6,7 +6,7 @@ db_user: "user1"
 
 env_path: ~/.env
 container_name: redmine
-docker_image: redmine:6.0.2  #:latest
+docker_image: redmine:latest
 pip_install_packages_name: docker
 
 #geerlingguy.pip

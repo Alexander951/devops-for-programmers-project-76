@@ -4,8 +4,8 @@
     
   roles:
     - role: geerlingguy.pip
-      #vars_files:
-         #- group_vars/webservers/vars.yml
+      vars_files:
+         - group_vars/webservers/vars.yml
       become: yes
       tags: install
       
