@@ -10,9 +10,6 @@
       tags: install
       
   tasks:
-  
-
-      
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
@@ -29,7 +26,6 @@
           - 80:3000
         env_file: "{{ env_path }}"
       tags: deploy
-
 
 
 - name: Install and setup Datadog Agent
