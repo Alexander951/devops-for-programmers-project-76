@@ -24,6 +24,7 @@
       tags: deploy
 
 
+
 - name: Install and setup Datadog Agent
   hosts: webservers
   tags: install-datadog
