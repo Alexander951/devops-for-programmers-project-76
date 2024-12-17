@@ -15,7 +15,10 @@ demo url [hexlet.web-programmer.kz](https://hexlet.web-programmer.kz)
 ### Setup servers
 
 ```
-$ make install - install pip and docker
+$ make install-requirements  - setup requirements  
+```
+```
+$ make install-app  - install pip, docker, (.env) file
 ```
 ```
 $ deploy - Start Redmine
