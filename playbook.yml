@@ -11,24 +11,14 @@
       
   tasks:
   
-    - name: Add packeges
-      apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - software-properties-common
-        state: present
-        update_cache: yes
-      become: true  
-      tags: install
+
       
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
         dest: "{{ env_path }}"
         mode: '660'
-      #tags: install
+      tags: install
       
     - name: Start Redmine_
       community.docker.docker_container:
