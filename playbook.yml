@@ -24,7 +24,7 @@
         restart_policy: always
         ports:
           - 80:3000
-        env_file: "{{ env_dir }}"
+        env_file: "{{ env_path }}"
       tags: deploy
 
 
