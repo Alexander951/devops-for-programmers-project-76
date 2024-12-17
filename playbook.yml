@@ -10,7 +10,7 @@
       tags: install
       
   tasks:
-      - name: Add packeges
+    - name: Add packeges
       apt:
         name:
           - apt-transport-https
