@@ -9,8 +9,8 @@
     - name: Add packeges
       apt:
         name:
-          #- apt-transport-https
-          #- ca-certificates
+          - apt-transport-https
+          - ca-certificates
           - curl
           - software-properties-common
         state: present
