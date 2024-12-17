@@ -1,6 +1,6 @@
 - hosts: all
-  #vars_files:
-    #- group_vars/webservers/vars.yml
+  vars_files:
+    - group_vars/webservers/vars.yml
     
   roles:
     - role: geerlingguy.pip
@@ -10,6 +10,19 @@
       tags: install
       
   tasks:
+  
+    - name: Add packeges
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+      become: true  
+      tags: install
+      
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
