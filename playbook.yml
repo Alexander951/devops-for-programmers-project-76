@@ -1,36 +1,21 @@
 - hosts: all
-  vars_files:
-    - group_vars/webservers/vars.yml
+  #vars_files:
+    #- group_vars/webservers/vars.yml
     
+  roles:
+    - role: geerlingguy.pip
+      #vars_files:
+         #- group_vars/webservers/vars.yml
+      become: yes
+      tags: install
+      
   tasks:
-  
-    - name: geerlingguy.pip
-      include_role:
-         name: geerlingguy.pip 
-      vars: 
-         pip_install_packages:
-            - name: "{{ pip_install_packages_name }}"
-              state: present
-      tags: install
-  
-    - name: Add packeges
-      apt:
-        name:
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - software-properties-common
-        state: present
-        update_cache: yes
-      become: true  
-      tags: install
-
     - name: Prepare .env file
       ansible.builtin.template:
         src: templates/.env.j2
-        dest: "{{ env_dir }}"
+        dest: "{{ env_path }}"
         mode: '660'
-      tags: install
+      #tags: install
       
     - name: Start Redmine_
       community.docker.docker_container:
@@ -44,56 +29,21 @@
 
 
 
-- name: Install Datadog Agent
+- name: Install and setup Datadog Agent
   hosts: webservers
   tags: install-datadog
-  become: true
-  
-  tasks:
-     - name: Install Datadog 
-       include_role:
-         name: datadog.datadog
-       vars:
-         datadog_api_key: "{{ datadog_api_keys }}"
-         datadog_site: datadoghq.eu
-         
-     - name: Install Datadog Agent
-       apt:
-        name: datadog-agent
-        state: present    
-         
-     - name: Get the IP address
-       set_fact:
-        server_ip: "{{ ansible_default_ipv4.address }}"   
-       
-     - name: Configure Datadog Agent
-       lineinfile:
-         path: /etc/datadog-agent/datadog.yaml
-         regexp: "^{{ item.key }}:"
-         line: "{{ item.key }}: {{ item.value }}"
-       with_items: 
-        - { key: "api_key", value: "{{ datadog_api_keys }}" }
-        - { key: "site", value: "datadoghq.eu" }
-        - { key: "logs_enabled", value: "true" }
-        - { key: "apm_enabled", value: "true" }
-        
-     - name: Create a health check for the web application
-       copy:
-         dest: /etc/datadog-agent/conf.d/http_check.d/conf.yaml
-         content: |
-          init_config:
-           instances:
-            - name: Web App Redmine ({{ server_ip }}) 
-              url: http://0.0.0.0:80
-              timeout: 5
-              check_interval: 60
-              expected_codes: "200"
-              tags:
-                - service:redmine
 
-     - name: Restart Datadog Agent
-       service:
-        name: datadog-agent
-        state: restarted
-        enabled: yes
+  roles:
+    - role: datadog.datadog
+      vars:
+         datadog_api_key: "{{ vault_datadog_api_keys }}"
+      #vars_files:
+         #- group_vars/webservers/vars.yml
+      become: yes
+
+           
+  
+  
+            
+         
       

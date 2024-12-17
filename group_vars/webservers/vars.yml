@@ -4,8 +4,25 @@ db_port: "6432"
 db_name: "db1"
 db_user: "user1"
 
-env_dir: ~/.env
+env_path: ~/.env
 container_name: redmine
 docker_image: redmine:latest
 pip_install_packages_name: docker
 
+#geerlingguy.pip
+pip_install_packages:
+    - name: "docker"
+      state: present
+              
+#Datadog 
+datadog_site: datadoghq.eu
+datadog_checks: 
+    http_check:
+        init_config:
+        instances:
+               - name: Redmine
+                 url: http://0.0.0.0
+                 timeout: 5
+                 tags:
+                   - app_redmine
+                 collect_response_time: true
