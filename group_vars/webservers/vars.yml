@@ -5,13 +5,13 @@ db_name: "db1"
 db_user: "user1"
 
 env_path: ~/.env
-container_name: "redmine"
-docker_image: "redmine:latest"
+container_name: redmine
+docker_image: redmine:latest
 pip_install_packages_name: docker
 
 #geerlingguy.pip
 pip_install_packages:
-    - name: "docker"
+    - name: docker
       state: present
               
 #Datadog 
