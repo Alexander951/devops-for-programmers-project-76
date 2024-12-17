@@ -6,7 +6,7 @@ db_user: "user1"
 
 env_path: ~/.env
 container_name: redmine
-docker_image: redmine:latest   #6.0.2
+docker_image: redmine:latest   #(6.0.2 latest) Error pulling image {{ docker_image }}:latest - 400 Client Error for http+docker
 pip_install_packages_name: docker
 
 #geerlingguy.pip
