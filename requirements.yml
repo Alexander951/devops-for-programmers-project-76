@@ -4,5 +4,5 @@ roles:
   - name: datadog.datadog
 
 #collections:
-  #- name: community.docker
+  - name: community.docker
   #- name: community.general
