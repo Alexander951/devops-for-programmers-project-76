@@ -4,12 +4,12 @@
         
   roles:
     - role: geerlingguy.pip
-      #become: yes
+      become: yes
       tags: install
 
-    - role: geerlingguy.docker
+    #- role: geerlingguy.docker
       #become: yes
-      tags: install-docker
+      #tags: install-docker
   
   tasks:
     - name: Prepare .env file
