@@ -23,7 +23,7 @@ docker_restart_handler_state: restarted
 
 docker_install_compose_plugin: true
 #docker_compose_package: docker-compose-plugin
-docker_compose_package_state: restarted
+docker_compose_package_state: stoped
 #docker_add_repo: true
 
 #Datadog 
