@@ -13,7 +13,15 @@ pip_install_packages_name: docker
 pip_install_packages:
     - name: docker
     - name: awscli
-              
+
+# Edition can be one of: 'ce' (Community Edition) or 'ee' (Enterprise Edition).
+docker_edition: 'ce'
+docker_packages:
+    - "docker-{{ docker_edition }}"
+    - "docker-{{ docker_edition }}-cli"
+    - "docker-{{ docker_edition }}-rootless-extras"
+docker_packages_state: present
+
 #Datadog 
 datadog_site: datadoghq.eu
 datadog_checks: 
