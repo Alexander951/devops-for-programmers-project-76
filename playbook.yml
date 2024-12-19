@@ -4,11 +4,11 @@
         
   roles:
     - role: geerlingguy.pip
-      become: yes
+      #become: yes
       tags: install
 
     - role: geerlingguy.docker
-      become: yes
+      #become: yes
       tags: install-docker
   
   tasks:
