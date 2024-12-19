@@ -17,7 +17,7 @@ pip_install_packages:
 docker_packages: 
     - "docker-ce"
 docker_service_manage: true
-docker_service_state: stoped #started
+docker_service_state: stopped #started
 docker_service_enabled: true
 docker_restart_handler_state: restarted
 
