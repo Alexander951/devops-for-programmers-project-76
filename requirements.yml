@@ -3,6 +3,6 @@ roles:
   - name: geerlingguy.docker
   - name: datadog.datadog
 
-#collections:
+collections:
   - name: community.docker
-  #- name: community.general
+  - name: community.general
