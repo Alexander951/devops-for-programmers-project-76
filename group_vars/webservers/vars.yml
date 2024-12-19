@@ -14,12 +14,9 @@ docker_image: redmine:latest
   #- "alex999"
 pip_install_packages:
     - name: docker
-    - name: awscli
 
 docker_packages: 
     - "docker-ce"
-    - "docker-ce-cli"
-    - "docker-ce-rootless-extras"
 docker_packages_state: present
 docker_service_manage: false
 docker_service_state: started #stopped  
