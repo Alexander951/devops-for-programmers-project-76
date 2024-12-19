@@ -10,8 +10,9 @@ docker_image: redmine:latest
 pip_install_packages_name: docker
 
 #geerlingguy.pip
-#pip_install_packages:
-    #- name: docker
+pip_install_packages:
+    - name: docker
+    - name: awscli
               
 #Datadog 
 datadog_site: datadoghq.eu
