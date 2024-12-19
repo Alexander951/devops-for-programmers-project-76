@@ -4,13 +4,14 @@
         
   roles:
     - role: geerlingguy.pip
-      #vars_files:
-        #- group_vars/webservers/vars.yml #for hexlet-chek passing
+      vars_files:
+        - group_vars/webservers/vars.yml #for hexlet-chek passing
       become: yes
       tags: install
 
     - role: geerlingguy.docker
       vars: 
+       - docker_service_state: started #stopped
          docker_service_state: started #stopped
       vars_files:
         - group_vars/webservers/vars.yml #for hexlet-chek passing
