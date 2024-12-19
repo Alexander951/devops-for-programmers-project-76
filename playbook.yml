@@ -10,6 +10,8 @@
       tags: install
 
     - role: geerlingguy.docker
+      vars: 
+         docker_service_state: started #stopped
       vars_files:
         - group_vars/webservers/vars.yml #for hexlet-chek passing
       become: yes
