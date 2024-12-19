@@ -19,6 +19,8 @@
       #tags: install-docker 
     
     - role: geerlingguy.docker
+      docker_users:
+         - {{ ansible_user }}
        #- docker_service_state: started #stopped
          #docker_service_state: started #stopped
       vars_files:
