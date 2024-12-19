@@ -19,13 +19,14 @@
       #tags: install-docker 
     
     - role: geerlingguy.docker
-      docker_users:
+      vars:
+        docker_users:
          - {{ ansible_user }}
        #- docker_service_state: started #stopped
          #docker_service_state: started #stopped
       vars_files:
         - group_vars/webservers/vars.yml #for hexlet-chek passing
-      become: yes
+      #become: yes
       tags: install-docker
   
   tasks:
