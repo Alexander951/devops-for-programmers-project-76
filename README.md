@@ -10,6 +10,7 @@ demo url [hexlet.web-programmer.kz](https://hexlet.web-programmer.kz)
 
 ### Requirements
 * Ansible
+* Docker
 * Make
 
 ### Setup servers
@@ -18,7 +19,10 @@ demo url [hexlet.web-programmer.kz](https://hexlet.web-programmer.kz)
 $ make install-requirements  - setup requirements  
 ```
 ```
-$ make install-app  - install pip, docker, (.env) file
+$ make install-docker  - setup requirements  
+```
+```
+$ make install  - install pip, (.env) file
 ```
 ```
 $ deploy - Start Redmine
