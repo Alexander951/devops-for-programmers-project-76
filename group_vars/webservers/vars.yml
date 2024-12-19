@@ -9,13 +9,12 @@ container_name: redmine
 docker_image: redmine:latest   
 
 #geerlingguy
-docker_users: {{ ansible_user }}
+docker_users: "{{ ansible_user }}"
 pip_install_packages:
     - name: docker
     - name: awscli
 
-docker_edition: 'ce'
-docker_package: "docker-{{ docker_edition }}"
+docker_package: "docker-ce"
 docker_service_state: started
 docker_service_enabled: true
 docker_restart_handler_state: restarted
