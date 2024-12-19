@@ -10,8 +10,8 @@
       tags: install
 
     - role: geerlingguy.docker
-      #vars_files:
-        #- group_vars/webservers/vars.yml #for hexlet-chek passing
+      vars_files:
+        - group_vars/webservers/vars.yml #for hexlet-chek passing
       become: yes
       tags: install-docker
   
