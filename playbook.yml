@@ -7,9 +7,9 @@
       become: yes
       tags: install
 
-    #- role: geerlingguy.docker
-      #become: yes
-      #tags: install-docker
+    - role: geerlingguy.docker
+      become: yes
+      tags: install-docker
   
   tasks:
     - name: Prepare .env file
