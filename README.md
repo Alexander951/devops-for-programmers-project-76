@@ -19,7 +19,7 @@ demo url [hexlet.web-programmer.kz](https://hexlet.web-programmer.kz)
 $ make install-requirements  - setup requirements  
 ```
 ```
-$ make install-docker  - setup requirements  
+$ make install-docker  - install docker  
 ```
 ```
 $ make install  - install pip, (.env) file
