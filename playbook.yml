@@ -4,16 +4,11 @@
            
   roles:
     - role: geerlingguy.pip
-      #vars_files:
-        #- group_vars/webservers/vars.yml #for hexlet-chek passing
       become: yes
       tags: install
 
     - role: geerlingguy.docker
       docker_user: "{{ ansible_ssh_user }}"
-      #vars_files:
-        #- group_vars/webservers/vars.yml #for hexlet-chek passing
-      #become: yes
       tags: install-docker
   
   tasks:
