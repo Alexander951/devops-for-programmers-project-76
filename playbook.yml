@@ -3,8 +3,7 @@
     - group_vars/webservers/vars.yml #for hexlet-chek passing
   
   vars:
-     ansible_user: 
-        - "{{ ansible_user }}"
+     ansible_user: "{{ ansible_user }}"
            
   roles:
     - role: geerlingguy.pip
